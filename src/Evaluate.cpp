@@ -60,7 +60,7 @@ int HoarePartition(vector<int> & arr, int start, int end){
 void HoareQuicksort(vector<int> & arr, int start, int end){
     if(start >= end) return;
     int partitionIndex = HoarePartition(arr, start, end);
-    HoareQuicksort(arr, start, partitionIndex-1);
+    HoareQuicksort(arr, start, partitionIndex);
     HoareQuicksort(arr, partitionIndex+1, end);
 }
 
