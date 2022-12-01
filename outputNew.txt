@@ -1,0 +1,88 @@
+Sorted Array of size 1000 whose values are in non-decreasing order
+
+Lomuto Partitioning: 
+10860 (Sorted) 500499
+Randomized Partitioning: 
+209 (Sorted) 6954
+Hoares Partitioning: 
+1850 (Sorted) 0
+Naive Partitioning: 
+12656 (Sorted)
+
+Sorted Array of size 10000 whose values are in non-decreasing order
+
+Lomuto Partitioning: 
+1070250 (Sorted) 50004999
+Randomized Partitioning: 
+2715 (Sorted) 93668
+Hoares Partitioning: 
+181477 (Sorted) 0
+Naive Partitioning: 
+1222724 (Sorted)
+
+Array of size 1000 in decreasing order
+
+Lomuto Partitioning: 
+6480 (Sorted) 250499
+Randomized Partitioning: 
+213 (Sorted) 6196
+Hoares Partitioning: 
+1878 (Sorted) 500
+Naive Partitioning: 
+12618 (Sorted)
+
+Array of size 10000 in decreasing order
+
+Lomuto Partitioning: 
+640252 (Sorted) 25004999
+Randomized Partitioning: 
+2576 (Sorted) 84837
+Hoares Partitioning: 
+181472 (Sorted) 5000
+Naive Partitioning: 
+1224498 (Sorted)
+
+Array of size 1000 whose values will be in random order
+
+Lomuto Partitioning: 
+258 (Sorted) 6115
+Randomized Partitioning: 
+262 (Sorted) 6879
+Hoares Partitioning: 
+209 (Sorted) 2358
+Naive Partitioning: 
+573 (Sorted)
+
+Array of size 10000 whose values will be in random order
+
+Lomuto Partitioning: 
+3093 (Sorted) 79994
+Randomized Partitioning: 
+3290 (Sorted) 85493
+Hoares Partitioning: 
+2602 (Sorted) 31521
+Naive Partitioning: 
+7021 (Sorted)
+
+Array of size 1000 whose values are all the same
+
+Lomuto Partitioning: 
+10729 (Sorted) 500499
+Randomized Partitioning: 
+10847 (Sorted) 501498
+Hoares Partitioning: 
+150 (Sorted) 4932
+Naive Partitioning: 
+12599 (Sorted)
+
+Array of size 10000 whose values are all the same
+
+Lomuto Partitioning: 
+1072298 (Sorted) 50004999
+Randomized Partitioning: 
+1069374 (Sorted) 50014998
+Hoares Partitioning: 
+1870 (Sorted) 64608
+Naive Partitioning: 
+1219753 (Sorted)
+

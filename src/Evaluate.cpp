@@ -4,43 +4,47 @@
 #include <iostream>
 #include <chrono>
 #include <experimental/random>
+#include <algorithm>
 
 using namespace std;
 
-int LomutoPartition(vector<int> & arr, int start, int end){
+int LomutoPartition(vector<int> & arr, int start, int end, int & numSwaps){
     int pivot = arr[end];
     int i = start-1;
     for(int j = start; j < end; j++){
         if(arr[j] <= pivot){
             swap(arr[++i], arr[j]);
+            numSwaps++;
         }
     }
     swap(arr[i+1], arr[end]);
+    numSwaps++;
     return i+1;
 }
 
-void LomutoQuicksort(vector<int> & arr, int start, int end){
+void LomutoQuicksort(vector<int> & arr, int start, int end, int & numSwaps){
     if(start >= end) return;
-    int partitionIndex = LomutoPartition(arr, start, end);
-    LomutoQuicksort(arr, start, partitionIndex-1);
-    LomutoQuicksort(arr, partitionIndex+1, end);
+    int partitionIndex = LomutoPartition(arr, start, end, numSwaps);
+    LomutoQuicksort(arr, start, partitionIndex-1, numSwaps);
+    LomutoQuicksort(arr, partitionIndex+1, end, numSwaps);
 }
 
-int RandomizedPartition(vector<int> & arr, int start, int end){
+int RandomizedPartition(vector<int> & arr, int start, int end, int & numSwaps){
     int randomPivot = rand()%(end+1 - start) + start;
     swap(arr[randomPivot], arr[end]);
-    return LomutoPartition(arr, start, end);
+    numSwaps++;
+    return LomutoPartition(arr, start, end, numSwaps);
 }
 
-void RandomizedQuicksort(vector<int> & arr, int start, int end){
+void RandomizedQuicksort(vector<int> & arr, int start, int end, int & numSwaps){
     if(start >= end) return;
-    int partitionIndex = RandomizedPartition(arr, start, end);
-    RandomizedQuicksort(arr, start, partitionIndex-1);
-    RandomizedQuicksort(arr, partitionIndex+1, end);
+    int partitionIndex = RandomizedPartition(arr, start, end, numSwaps);
+    RandomizedQuicksort(arr, start, partitionIndex-1, numSwaps);
+    RandomizedQuicksort(arr, partitionIndex+1, end, numSwaps);
 }
 
 
-int HoarePartition(vector<int> & arr, int start, int end){
+int HoarePartition(vector<int> & arr, int start, int end, int & numSwaps){
     int pivot = arr[start];
     int i = start-1;
     int j = end+1;
@@ -50,6 +54,7 @@ int HoarePartition(vector<int> & arr, int start, int end){
         while(arr[++i] < pivot);
         if(i < j){
             swap(arr[i], arr[j]);
+            numSwaps++;
         }
         else{
             return j;
@@ -57,57 +62,45 @@ int HoarePartition(vector<int> & arr, int start, int end){
     }
 }
 
-void HoareQuicksort(vector<int> & arr, int start, int end){
+void HoareQuicksort(vector<int> & arr, int start, int end, int & numSwaps){
     if(start >= end) return;
-    int partitionIndex = HoarePartition(arr, start, end);
-    HoareQuicksort(arr, start, partitionIndex);
-    HoareQuicksort(arr, partitionIndex+1, end);
+    int partitionIndex = HoarePartition(arr, start, end, numSwaps);
+    HoareQuicksort(arr, start, partitionIndex, numSwaps);
+    HoareQuicksort(arr, partitionIndex+1, end, numSwaps);
 }
 
 int NaivePartition(vector<int> & arr, int start, int end){
-    vector<int> temp(end - start + 1);
+    vector<int> temp((end - start) + 1);
  
-        // Choosing a pivot
-        int pivot = arr[end];
-        int index = 0;
+    int pivot = arr[end];
+    int index = 0;
        
-        // smaller number
-        for (int i = start; i <= end; ++i) {
-            if (arr[i] < pivot)
-            {
-                temp[index++] = arr[i];
-            }
+    for (int i = start; i < end; i++) {
+        if (arr[i] <= pivot){
+            temp[index++] = arr[i];
         }
+    }
+
+    int position = index;
+    
+    temp[index++] = pivot;
        
-        // pivot position
-        int position = index;
-       
-        // Placing the pivot to its original position
-        temp[index++] = pivot;
-       
-        for (int i = start; i <= end; ++i)
-        {
-            if (arr[i] > pivot)
-            {
-                temp[index++] = arr[i];
-            }
+    for (int i = start; i <= end; i++){
+        if (arr[i] > pivot){
+            temp[index++] = arr[i];
         }
+    }
  
-        // Change the original array
-        for (int i = start; i <= end; i++) {
-            arr[i] = temp[i - start];
-        }
-        // return the position of the pivot
-        return position;
+    for (int i = start; i <= end; ++i) {
+        arr[i] = temp[i - start];
+    }
+
+    return position+start;
 }
 
 void NaiveQuicksort(vector<int> & arr, int start, int end){
     if(start >= end) return;
     int partitionIndex = NaivePartition(arr, start, end);
-    cout << "New parition" << endl;
-    cout << start << " " << partitionIndex << " " << end << endl;
-    //this shouldn't be here but seg fault if not
-    if(partitionIndex < start) return;
     NaiveQuicksort(arr, start, partitionIndex-1);
     NaiveQuicksort(arr, partitionIndex+1, end);
 }
@@ -211,29 +204,50 @@ int main(int argc, char * argv[]){
 
             outStream << "Lomuto Partitioning: " << endl;
             vector<int> temp = inputs[i].second;
+            int numSwaps = 0;
             auto start = std::chrono::high_resolution_clock::now();
-            LomutoQuicksort(temp, 0, temp.size()-1);
+            LomutoQuicksort(temp, 0, temp.size()-1, numSwaps);
             auto finish = std::chrono::high_resolution_clock::now();
             auto microseconds = std::chrono::duration_cast<std::chrono::microseconds>(finish-start);
-            outStream << microseconds.count() << endl;
+            outStream << microseconds.count() << " ";
+            if(is_sorted(temp.begin(), temp.end())){
+                outStream << "(Sorted) " << numSwaps << endl;
+            }
+            else{
+                outStream << "(Not Sorted)" << endl;
+            }
 
 
             outStream << "Randomized Partitioning: " << endl;
             vector<int> temp2 = inputs[i].second;
+            int numSwaps2 = 0;
             auto start2 = std::chrono::high_resolution_clock::now();
-            RandomizedQuicksort(temp2, 0, temp2.size()-1);
+            RandomizedQuicksort(temp2, 0, temp2.size()-1, numSwaps2);
             auto finish2 = std::chrono::high_resolution_clock::now();
             auto microseconds2 = std::chrono::duration_cast<std::chrono::microseconds>(finish2-start2);
-            outStream << microseconds2.count() << endl;
+            outStream << microseconds2.count() << " ";
+            if(is_sorted(temp2.begin(), temp2.end())){
+                outStream << "(Sorted) " << numSwaps2 << endl;
+            }
+            else{
+                outStream << "(Not Sorted)" << endl;
+            }
 
 
             outStream << "Hoares Partitioning: " << endl;
             vector<int> temp3 = inputs[i].second;
+            int numSwaps3 = 0;
             auto start3 = std::chrono::high_resolution_clock::now();
-            HoareQuicksort(temp3, 0, temp3.size()-1);
+            HoareQuicksort(temp3, 0, temp3.size()-1, numSwaps3);
             auto finish3 = std::chrono::high_resolution_clock::now();
             auto microseconds3 = std::chrono::duration_cast<std::chrono::microseconds>(finish3-start3);
-            outStream << microseconds3.count() << endl;
+            outStream << microseconds3.count() << " ";
+            if(is_sorted(temp3.begin(), temp3.end())){
+                outStream << "(Sorted) " << numSwaps3 << endl;
+            }
+            else{
+                outStream << "(Not Sorted)" << endl;
+            }
 
             outStream << "Naive Partitioning: " << endl;
             vector<int> temp4 = inputs[i].second;
@@ -241,7 +255,13 @@ int main(int argc, char * argv[]){
             NaiveQuicksort(temp4, 0, temp4.size()-1);
             auto finish4 = std::chrono::high_resolution_clock::now();
             auto microseconds4 = std::chrono::duration_cast<std::chrono::microseconds>(finish4-start4);
-            outStream << microseconds4.count() << endl << endl;
+            outStream << microseconds4.count() << " ";
+            if(is_sorted(temp4.begin(), temp4.end())){
+                outStream << "(Sorted)" << endl << endl;
+            }
+            else{
+                outStream << "(Not Sorted)" << endl << endl;
+            }
         }
     }
     outStream.close();
