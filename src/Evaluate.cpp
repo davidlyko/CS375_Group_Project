@@ -81,7 +81,7 @@ int NaivePartition(vector<int> & arr, int start, int end){
         }
     }
 
-    int position = index;
+    int pivotPosition = index;
     
     temp[index++] = pivot;
        
@@ -95,7 +95,7 @@ int NaivePartition(vector<int> & arr, int start, int end){
         arr[i] = temp[i - start];
     }
 
-    return position+start;
+    return pivotPosition+start;
 }
 
 void NaiveQuicksort(vector<int> & arr, int start, int end){
@@ -199,7 +199,7 @@ int main(int argc, char * argv[]){
 
     if(outStream){
         for(int i = 0; i < inputs.size(); i++){
-            outStream << inputs[i].first << endl << endl;
+            outStream << inputs[i].first << endl;
 
 
             outStream << "Lomuto Partitioning: " << endl;

@@ -1,88 +1,80 @@
 Sorted Array of size 1000 whose values are in non-decreasing order
-
 Lomuto Partitioning: 
-10497
+10757 (Sorted) 500499
 Randomized Partitioning: 
-203
+206 (Sorted) 6954
 Hoares Partitioning: 
-1870
+1850 (Sorted) 0
 Naive Partitioning: 
-19826
+12609 (Sorted)
 
 Sorted Array of size 10000 whose values are in non-decreasing order
-
 Lomuto Partitioning: 
-1039377
+1072282 (Sorted) 50004999
 Randomized Partitioning: 
-2608
+2736 (Sorted) 93668
 Hoares Partitioning: 
-181905
+181927 (Sorted) 0
 Naive Partitioning: 
-1319646
+1221903 (Sorted)
 
 Array of size 1000 in decreasing order
-
 Lomuto Partitioning: 
-6284
+6396 (Sorted) 250499
 Randomized Partitioning: 
-202
+201 (Sorted) 6196
 Hoares Partitioning: 
-1239
+1858 (Sorted) 500
 Naive Partitioning: 
-76
+12602 (Sorted)
 
 Array of size 10000 in decreasing order
-
 Lomuto Partitioning: 
-621711
+637948 (Sorted) 25004999
 Randomized Partitioning: 
-2512
+2674 (Sorted) 84837
 Hoares Partitioning: 
-121280
+184350 (Sorted) 5000
 Naive Partitioning: 
-541
+1228282 (Sorted)
 
 Array of size 1000 whose values will be in random order
-
 Lomuto Partitioning: 
-238
+237 (Sorted) 6115
 Randomized Partitioning: 
-260
+259 (Sorted) 6879
 Hoares Partitioning: 
-174
+207 (Sorted) 2358
 Naive Partitioning: 
-326
+561 (Sorted)
 
 Array of size 10000 whose values will be in random order
-
 Lomuto Partitioning: 
-3145
+3060 (Sorted) 79994
 Randomized Partitioning: 
-3311
+3273 (Sorted) 85493
 Hoares Partitioning: 
-2292
+2578 (Sorted) 31521
 Naive Partitioning: 
-1459
+6983 (Sorted)
 
 Array of size 1000 whose values are all the same
-
 Lomuto Partitioning: 
-10484
+10727 (Sorted) 500499
 Randomized Partitioning: 
-10522
+10771 (Sorted) 501498
 Hoares Partitioning: 
-113
+150 (Sorted) 4932
 Naive Partitioning: 
-73
+12586 (Sorted)
 
 Array of size 10000 whose values are all the same
-
 Lomuto Partitioning: 
-1040025
+1066962 (Sorted) 50004999
 Randomized Partitioning: 
-1041426
+1074399 (Sorted) 50014998
 Hoares Partitioning: 
-1629
+1858 (Sorted) 64608
 Naive Partitioning: 
-432
+1225345 (Sorted)
 
